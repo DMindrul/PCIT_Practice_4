@@ -53,7 +53,7 @@ pipeline {
                 stage('Archive Artifact') {
                     steps {
                         // Створення TAR-архіву артефакту з використанням імені додатку APP_NAME та номеру сборки BUILD_NUMBER
-                        archiveArtifacts artifacts: "${APP_NAME}/*", fingerprint: true
+                        sh "tar -czf ${APP_NAME}-${BUILD_NUMBER}.tar.gz ${APP_NAME}"
                     }
                 }
 
@@ -72,7 +72,7 @@ pipeline {
     post {
         success {
             // Архівація успішна, артефакт готовий для використання та збереження
-            echo 'Archive successful. Artifact ready for use and storage.'
+            archiveArtifacts artifacts: "${APP_NAME}-${BUILD_NUMBER}.tar.gz", fingerprint: true
         }
         always {
             // Завершення пайплайну, можна додати додаткові кроки (наприклад, розгортання) за потребою
