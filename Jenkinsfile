@@ -61,7 +61,7 @@ pipeline {
                     steps {
                         // Створення Docker образу з імʼям DOCKER_IMAGE_NAME і тегом BUILD_NUMBER та передача аргументу APP_NAME за допомогою флагу `--build-arg`
                         script {
-                           sh "docker.build("${DOCKER_IMAGE_NAME}-${BUILD_NUMBER}", "--build-arg APP_NAME=${APP_NAME} .")"
+                           sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} --build-arg APP_NAME=${APP_NAME} ."
                         }
                     }
                 }
